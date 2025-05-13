@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agri-Bid Platform</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <%- include('partials/header', { user }) %>
+
+  <div class="container my-5">
+    <h1>Agri-Bid Platform</h1>
+    <p>Real-time crop bidding for farmers and bidders.</p>
+
+    <% if (!user) { %>
+      <a href="/auth/register" class="btn btn-primary">Register</a>
+      <a href="/auth/login" class="btn btn-secondary">Login</a>
+    <% } else { %>
+      <p>Hello, <%= user.name %>!</p>
+      <% if (user.roles.includes('farmer')) { %>
+        <a href="/farmer/crops" class="btn btn-primary">Farmer Dashboard</a>
+      <% } %>
+      <% if (user.roles.includes('bidder')) { %>
+        <a href="/bidder/listings" class="btn btn-primary">Browse Listings</a>
+      <% } %>
+      <% if (user.roles.includes('admin')) { %>
+        <a href="/admin/dashboard" class="btn btn-primary">Admin Dashboard</a>
+      <% } %>
+    <% } %>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
