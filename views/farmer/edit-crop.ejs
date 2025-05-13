@@ -3,34 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Crop - Agri-Bid</title>
+  <title>Edit Crop - Agri-Bid</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
   <%- include('../partials/header') %>
   <div class="container my-5">
-    <h2>Create Crop Listing</h2>
+    <h2>Edit Crop</h2>
     <% if (error) { %>
       <div class="alert alert-danger"><%= error %></div>
     <% } %>
-    <form action="/farmer/create-crop" method="POST" enctype="multipart/form-data">
+    <form action="/farmer/edit-crop/<%= crop._id %>" method="POST" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="name" class="form-label">Crop Name</label>
-        <input type="text" class="form-control" id="name" name="name" required>
+        <input type="text" class="form-control" id="name" name="name" value="<%= crop.name %>" required>
       </div>
       <div class="mb-3">
         <label for="basePrice" class="form-label">Base Price</label>
-        <input type="number" class="form-control" id="basePrice" name="basePrice" required>
+        <input type="number" class="form-control" id="basePrice" name="basePrice" value="<%= crop.basePrice %>" required>
       </div>
       <div class="mb-3">
         <label for="startTime" class="form-label">Auction Start Time</label>
-        <input type="datetime-local" class="form-control" id="startTime" name="startTime" required>
+        <input type="datetime-local" class="form-control" id="startTime" name="startTime" value="<%= crop.startTime.toISOString().slice(0,16) %>" required>
       </div>
       <div class="mb-3">
         <label for="picture" class="form-label">Crop Picture</label>
         <input type="file" class="form-control" id="picture" name="picture" accept="image/*">
+        <% if (crop.picture) { %>
+          <img src="<%= crop.picture %>" alt="Crop Picture" class="img-thumbnail mt-2" style="max-width: 200px;">
+        <% } %>
       </div>
-      <button type="submit" class="btn btn-primary">Create Crop</button>
+      <button type="submit" class="btn btn-primary">Update Crop</button>
     </form>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

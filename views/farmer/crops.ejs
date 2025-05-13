@@ -14,17 +14,36 @@
     <table class="table">
       <thead>
         <tr>
+          <th>Picture</th>
           <th>Crop Name</th>
           <th>Base Price</th>
           <th>Status</th>
+          <th>Start Time</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <% crops.forEach(crop => { %>
           <tr>
+            <td>
+              <% if (crop.picture) { %>
+                <img src="<%= crop.picture %>" alt="Crop" class="img-thumbnail" style="max-width: 100px;">
+              <% } else { %>
+                No Image
+              <% } %>
+            </td>
             <td><%= crop.name %></td>
             <td><%= crop.basePrice %></td>
             <td><%= crop.status %></td>
+            <td><%= crop.startTime ? crop.startTime.toLocaleString() : 'Not Set' %></td>
+            <td>
+              <% if (crop.status === 'upcoming') { %>
+                <a href="/farmer/edit-crop/<%= crop._id %>" class="btn btn-sm btn-warning">Edit</a>
+                <form action="/farmer/delete-crop/<%= crop._id %>" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+              <% } %>
+            </td>
           </tr>
         <% }) %>
       </tbody>

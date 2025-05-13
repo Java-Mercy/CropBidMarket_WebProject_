@@ -13,7 +13,7 @@
     <% if (error) { %>
       <div class="alert alert-danger"><%= error %></div>
     <% } %>
-    <form action="/auth/register" method="POST">
+    <form action="/auth/register" method="POST" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input type="text" class="form-control" id="name" name="name" required>
@@ -29,6 +29,10 @@
       <div class="mb-3">
         <label for="roles" class="form-label">Roles (comma-separated: farmer,bidder)</label>
         <input type="text" class="form-control" id="roles" name="roles" required placeholder="farmer,bidder">
+      </div>
+      <div class="mb-3">
+        <label for="profilePicture" class="form-label">Profile Picture</label>
+        <input type="file" class="form-control" id="profilePicture" name="profilePicture" accept="image/*">
       </div>
       <button type="submit" class="btn btn-primary">Register</button>
     </form>

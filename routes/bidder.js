@@ -10,12 +10,27 @@ router.get('/listings', isAuthenticated, hasRole('bidder'), async (req, res) => 
 });
 
 router.get('/auction/:cropId', isAuthenticated, hasRole('bidder'), async (req, res) => {
-  const crop = await Crop.findById(req.params.cropId).populate('farmer');
-  res.render('bidder/auction', { user: req.session.user, crop });
+  const crop = await Crop.findById(req.params.id).populate('farmer');
+  if (!crop) {
+    return res.redirect('/bidder/listings');
+  }
+  const now = new Date();
+  if (crop.startTime && crop.startTime > now) {
+    crop.status = 'upcoming';
+  } else if (crop.status !== 'closed') {
+    crop.status = 'open';
+  }
+  await crop.save();
+  const bids = await Bid.find({ crop: crop._id }).populate('bidder').sort({ createdAt: -1 });
+  res.render('bidder/auction', { user: req.session.user, crop, bids });
 });
 
 router.post('/place-bid/:cropId', isAuthenticated, hasRole('bidder'), async (req, res) => {
   const { amount } = req.body;
+  const crop = await Crop.findById(req.params.cropId);
+  if (crop.status !== 'open') {
+    return res.redirect(`/bidder/auction/${req.params.cropId}`);
+  }
   await Bid.create({
     crop: req.params.cropId,
     bidder: req.session.user._id,

@@ -11,7 +11,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "connect-mongo": "^5.1.0",
@@ -20,6 +19,7 @@
     "express": "^5.1.0",
     "express-session": "^1.18.1",
     "mongoose": "^8.14.2",
+    "multer": "^1.4.5-lts.1",
     "socket.io": "^4.7.2"
   },
   "devDependencies": {
