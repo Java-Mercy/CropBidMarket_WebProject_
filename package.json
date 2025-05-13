@@ -3,10 +3,24 @@
   "version": "1.0.0",
   "description": "This project solves two major problems:      Farmers struggle to afford expensive machinery.   Farmers do not get fair prices for their crops due to middlemen.   By combining the Equipment Rental Platform and Crop Bidding Marketplace, we create a single platform that helps farmers rent equipment and sell crops via bidding to get the best prices.",
   "main": "index.js",
-  "scripts": {
+  "scripts": { 
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "mongoose": "^8.14.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
 }
